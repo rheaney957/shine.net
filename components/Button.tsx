@@ -8,18 +8,20 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
   ticketsUrl?: any;
   disabled?: boolean;
   onClick?: () => void;
+  noLink?: boolean;
   style?: any;
 };
 
-export default function Button({context = 'primary', text, ticketsUrl, disabled, onClick, style}: ButtonProps) {
+export default function Button({context = 'primary', text, ticketsUrl, disabled, onClick, noLink, style}: ButtonProps) {
 
   return (
-    <button style={style} disabled={disabled} className={styles[context]} onClick={onClick}>
-      {!onClick && <Link
+    <button style={style} disabled={disabled} className={`${styles[context]} ${noLink ? styles.noLink : ''}`} onClick={onClick}>
+      {!onClick && !noLink && <Link
         href={ticketsUrl ?? 'https://www.ticketmaster.ie/'}
       >
         {text}
       </Link>}
+      {!onClick && (noLink) && text}
       {onClick && text}
     </button>
   )

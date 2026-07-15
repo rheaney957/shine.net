@@ -16,6 +16,8 @@ export type CardProps = {
     websiteImage?: string | any;
     status?: string;
     ticketsUrl?: string;
+    buttonText?: string;
+    noLink?: boolean;
   };
 };
 
@@ -28,6 +30,8 @@ export default function Card({gig: {
   websiteImage,
   status,
   ticketsUrl,
+  buttonText,
+  noLink,
 }}: CardProps)
 {
 
@@ -65,7 +69,7 @@ export default function Card({gig: {
             </div>
           </div>
           <div className={styles.cardTickets}>
-            <Button ticketsUrl={ticketsUrl} style={{fontWeight: '600'}} disabled={!!status} text={status ? "SOLD OUT" : "Buy Tickets"} />
+            <Button ticketsUrl={ticketsUrl} noLink={noLink} style={{fontWeight: '600'}} disabled={!!status} text={status ? "SOLD OUT" : buttonText ?? "Buy Tickets"} />
           </div>
         </div>
       </div>

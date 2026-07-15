@@ -36,6 +36,7 @@ export default function Fleadh2026({menu, setMenu}:Fleadh2026Props)
   if (!data) return <p>No Fleadh 2026 events</p>
 
   const gigs = data?.events;
+  console.log('gigs', gigs)
 
   return (
     <div className={styles.container}>
@@ -45,21 +46,27 @@ export default function Fleadh2026({menu, setMenu}:Fleadh2026Props)
       <Breadcrumbs />
       <main className={!menu ? styles.main : styles.mainMobile}>
         <Layout title='Fleadh 2026' data={gigs}>
-          {(!isLoading && gigs instanceof Array) && gigs?.map((gig: any, index: number) => (
-            <Card
-              key={index}
-              gig={{
-                time: gig?.doors,
-                startDate: gig?.startDate,
-                name: gig?.title,
-                support: gig?.subTitle,
-                location: gig?.venue,
-                websiteImage: gig?.websiteImage,
-                ticketsUrl: gig?.ticketsUrl,
-                status: gig?.isSoldOut
-              }}
-            />
-          ))}
+          {(!isLoading && gigs instanceof Array) && gigs?.map((gig: any, index: number) => {
+            const isFree = Array.isArray(gig?.categories) && gig.categories.some((category: any) => String(category).toLowerCase().includes('free'));
+
+            return (
+              <Card
+                key={index}
+                gig={{
+                  time: gig?.doors,
+                  startDate: gig?.startDate,
+                  name: gig?.title,
+                  support: gig?.subTitle,
+                  location: gig?.venue,
+                  websiteImage: gig?.websiteImage,
+                  ticketsUrl: isFree ? undefined : gig?.ticketsUrl,
+                  status: gig?.isSoldOut,
+                  buttonText: isFree ? 'Free Entry' : undefined,
+                  noLink: isFree,
+                }}
+              />
+            )
+          })}
         </Layout>
       </main>
       <Footer menu={menu}/>
