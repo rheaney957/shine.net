@@ -103,12 +103,24 @@ const Layout: FC<LayoutPropTypes> = ({
 
     // @ts-ignore
     date && setDateField(date);
-    date&& setstateDate(format(date as Date, 'yyyy-MM-dd'));
+    date && setstateDate(format(date as Date, 'yyyy-MM-dd'));
     if (date === null) {
+      setDateField(undefined);
+      setstateDate(undefined);
       setSearchShow(false);
     }
     else {
       setSearchShow(true);
+    }
+  };
+
+  const clearDateFilter = () => {
+    setDateField(undefined);
+    setstateDate(undefined);
+    setSearchShow(false);
+    const el = (document.getElementById('dateSearch') as HTMLInputElement);
+    if (el) {
+      el.value = '';
     }
   };
 
@@ -178,7 +190,8 @@ const Layout: FC<LayoutPropTypes> = ({
         location: gig?.venue,
         websiteImage: gig?.websiteImage,
         ticketsUrl: gig?.ticketsUrl,
-        status: gig?.isSoldOut
+        status: gig?.isSoldOut,
+        categories: gig?.categories
       }}
     />);
   });
@@ -194,7 +207,8 @@ const Layout: FC<LayoutPropTypes> = ({
         location: gig?.venue,
         websiteImage: gig?.websiteImage,
         ticketsUrl: gig?.ticketsUrl,
-        status: gig?.isSoldOut
+        status: gig?.isSoldOut,
+        categories: gig?.categories
       }}
     />);
   return (
@@ -202,12 +216,19 @@ const Layout: FC<LayoutPropTypes> = ({
       <div className={styles.container}>
        <div className={styles.searchDate}>
           {!FAQs &&
-          <DatePicker id='dateSearch' popperPlacement="bottom-end" popperModifiers={[
-            {
-              name: 'arrow',
-              options: { padding: 220 },
-            },
-          ]} placeholderText='Search By Date' dateFormat="dd/MM/yyyy" selected={dateField} onChange={(date) => date && handleDateChange(date)} />}
+          <>
+            <DatePicker id='dateSearch' popperPlacement="bottom-end" popperModifiers={[
+              {
+                name: 'arrow',
+                options: { padding: 220 },
+              },
+            ]} placeholderText='Search By Date' dateFormat="dd/MM/yyyy" selected={dateField} onChange={handleDateChange} />
+            {(dateField || stateDate) && (
+              <button type='button' className={styles.clearDateButton} onClick={clearDateFilter}>
+                Clear
+              </button>
+            )}
+          </>}
         </div>
         <div className={`${styles.searchText} ${FAQs && styles.searchTextNone}`} >
           {!FAQs && <input type="search" id='search' placeholder='Search by Venue, Artist or Event' onChange={handleChange} />}

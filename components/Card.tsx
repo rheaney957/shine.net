@@ -18,6 +18,7 @@ export type CardProps = {
     ticketsUrl?: string;
     buttonText?: string;
     noLink?: boolean;
+    categories?: any[];
   };
 };
 
@@ -32,8 +33,13 @@ export default function Card({gig: {
   ticketsUrl,
   buttonText,
   noLink,
+  categories,
 }}: CardProps)
 {
+  const shouldShowFreeEntry = Array.isArray(categories) && categories.some((category: any) => String(category).includes('Free'));
+  const resolvedNoLink = noLink || shouldShowFreeEntry;
+  const resolvedButtonText = shouldShowFreeEntry ? 'Free Entry' : (buttonText ?? 'Buy Tickets');
+  const resolvedTicketsUrl = shouldShowFreeEntry ? undefined : ticketsUrl;
 
   return (
     <section className={styles.cardContainer}>
@@ -69,7 +75,7 @@ export default function Card({gig: {
             </div>
           </div>
           <div className={styles.cardTickets}>
-            <Button ticketsUrl={ticketsUrl} noLink={noLink} style={{fontWeight: '600'}} disabled={!!status} text={status ? "SOLD OUT" : buttonText ?? "Buy Tickets"} />
+            <Button ticketsUrl={resolvedTicketsUrl} noLink={resolvedNoLink} style={{fontWeight: '600'}} disabled={!!status} text={status ? "SOLD OUT" : resolvedButtonText} />
           </div>
         </div>
       </div>

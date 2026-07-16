@@ -57,7 +57,8 @@ export default function Dance({menu, setMenu}:DanceProps)
                 location: gig?.venue,
                 websiteImage: gig?.websiteImage,
                 ticketsUrl: gig?.ticketsUrl,
-                status: gig?.isSoldOut
+                status: gig?.isSoldOut,
+                categories: gig?.categories
               }}
             />
           ))}

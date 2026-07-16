@@ -59,10 +59,9 @@ export default function Fleadh2026({menu, setMenu}:Fleadh2026Props)
                   support: gig?.subTitle,
                   location: gig?.venue,
                   websiteImage: gig?.websiteImage,
-                  ticketsUrl: isFree ? undefined : gig?.ticketsUrl,
+                  ticketsUrl: gig?.ticketsUrl,
                   status: gig?.isSoldOut,
-                  buttonText: isFree ? 'Free Entry' : undefined,
-                  noLink: isFree,
+                  categories: gig?.categories,
                 }}
               />
             )

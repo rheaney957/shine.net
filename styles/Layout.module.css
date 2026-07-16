@@ -29,6 +29,17 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.clearDateButton {
+  margin-left: 8px;
+  border: none;
+  border-radius: 4px;
+  padding: 0 12px;
+  background-color: #14737c;
+  color: #fff;
+  cursor: pointer;
+  height: 40px;
+}
 /* .searchDate input[type="date"]::-webkit-calendar-picker-indicator {
   background-image: url('../public/images/calender.jpeg');
   Background-size: 25px;

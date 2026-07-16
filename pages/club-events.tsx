@@ -95,7 +95,8 @@ export default function ClubEvents({menu, setMenu}:ClubEventsProps)
                 location: gig?.venue,
                 websiteImage: gig?.websiteImage,
                 ticketsUrl: gig?.ticketsUrl,
-                status: gig?.isSoldOut
+                status: gig?.isSoldOut,
+                categories: gig?.categories
               }}
             />
           ))}
