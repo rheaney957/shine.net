@@ -63,13 +63,6 @@ export default function NavBar({menu, setMenu}: NavBarProps)
                             </Link>
                         </li>
                         <li className={styles.navItem} onClick={() => setMenu(false)}>
-                            <Link href="./fleadh-2026" legacyBehavior>
-                                <a className={router.pathname === "/fleadh-2026" ? styles.active : styles.navLinks}>
-                                    Fleadh 2026
-                                </a>
-                            </Link>
-                        </li>
-                        <li className={styles.navItem} onClick={() => setMenu(false)}>
                             <Link href="./help-and-FAQs" legacyBehavior>
                                 <a className={router.pathname === "/help-and-FAQs" ? styles.active : styles.navLinks}>
                                     {"Help / FAQ's"}
